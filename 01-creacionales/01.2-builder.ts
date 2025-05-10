@@ -22,7 +22,7 @@ import { COLORS } from '../helpers/colors.ts';
  * - orderBy(field: string, order: string): QueryBuilder - opcional
  * - limit(limit: number): QueryBuilder - opcional
  * - execute(): string - retorna la consulta SQL
- * 
+ *
  ** Ejemplo de uso:
   const usersQuery = new QueryBuilder("users") // users es el nombre de la tabla
     .select("id", "name", "email")

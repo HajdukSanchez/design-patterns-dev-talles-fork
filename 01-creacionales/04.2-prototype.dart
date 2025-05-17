@@ -27,20 +27,6 @@ class Pokemon {
     return Pokemon(name: name, type: type, level: level, attacks: attacks);
   }
 
-  Pokemon copyWith({
-    String? name,
-    String? type,
-    int? level,
-    List<String>? attacks,
-  }) {
-    return Pokemon(
-      name: name ?? this.name,
-      type: type ?? this.type,
-      level: level ?? this.level,
-      attacks: attacks ?? this.attacks,
-    );
-  }
-
   void displayInfo() {
     print('Pokemon:');
     print(
@@ -57,7 +43,7 @@ void main(List<String> args) {
     level: 10,
     attacks: ['Lick'],
   );
-  final pokemon2 = basePokemon.clone().copyWith(name: 'Charizard', level: 5);
+  final pokemon2 = basePokemon.clone();
 
   basePokemon.displayInfo();
   pokemon2.displayInfo();

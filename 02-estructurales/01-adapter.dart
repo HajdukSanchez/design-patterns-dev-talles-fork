@@ -1,3 +1,6 @@
+// import 'adapter-files/local-logger.dart';
+import 'adapter-files/logger-adapter.dart';
+
 /**
  * ! Patrón Adapter
  *  Permite que objetos con interfaces incompatibles trabajen juntos, también es muy
@@ -10,3 +13,14 @@
  *
  * https://refactoring.guru/es/design-patterns/adapter
  */
+
+void main(List<String> args) {
+  // final logger = LocalLogger(file: '01-adapter.dart');
+  final logger = PackageLoggerAdapter(file: '01-adapter.dart');
+
+  // Imagine we have this kind of logs across a big amount of files
+  // in the app
+  logger.writeLog('This is a Log');
+  logger.writeError('This is a Error');
+  logger.writeWarning('This is a Warning');
+}

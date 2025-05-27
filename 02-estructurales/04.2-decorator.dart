@@ -60,6 +60,16 @@ abstract class CharacterDecorator implements Character {
   CharacterDecorator({required Character character}) : _character = character;
 
   final Character _character;
+
+  @override
+  String getDescription() {
+    return _character.getDescription();
+  }
+
+  @override
+  Stats getStats() {
+    return _character.getStats();
+  }
 }
 
 final class HelmetDecorator extends CharacterDecorator {

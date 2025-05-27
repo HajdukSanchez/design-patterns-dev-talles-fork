@@ -28,6 +28,11 @@ abstract class NotificationDecorator implements Notification {
     : _notification = notification;
 
   final Notification _notification;
+
+  @override
+  void send({required String message}) {
+    _notification.send(message: message);
+  }
 }
 
 // Kinds of decorators

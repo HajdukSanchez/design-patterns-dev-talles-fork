@@ -28,6 +28,8 @@
        de ejecución según el país seleccionado.
  */
 
+import 'dart:math';
+
 /**	
     1.	Implementar una interfaz TaxStrategy que defina un método 
         calculateTax(amount: number): number.
@@ -41,59 +43,64 @@
         para calcular los impuestos.
  */
 
-import { COLORS } from '../helpers/colors.ts';
-
-// Interfaz Strategy
-interface TaxStrategy {
-  calculateTax(amount: number): number;
+abstract interface class TaxStrategy {
+  double calculateTax(double amount);
 }
 
-// Estrategia 1: Impuestos en USA
-class USATaxStrategy implements TaxStrategy {
-  // TODO: Implementar el método calculateTax = amount * 0.1
+final class USATaxStrategy implements TaxStrategy {
+  @override
+  double calculateTax(double amount) {
+    return amount * 0.1;
+  }
 }
 
-// Estrategia 2: Impuestos en Canada
-class CanadaTaxStrategy implements TaxStrategy {
-  // TODO: Implementar el método calculateTax = amount * 0.13
+final class CanadaTaxStrategy implements TaxStrategy {
+  @override
+  double calculateTax(double amount) {
+    return amount * 0.13;
+  }
 }
 
-// Estrategia 3: Impuestos en Germany
 class GermanyTaxStrategy implements TaxStrategy {
-  // TODO: Implementar el método calculateTax = amount * 0.19
-}
-
-// Clase Contexto - TaxCalculator
-class TaxCalculator {
-  private strategy: TaxStrategy;
-
-  // TODO: Implementar el constructor recibiendo la estrategia a usar
-
-  // Cambiar la estrategia de cálculo de impuestos
-  setStrategy(strategy: TaxStrategy): void {
-    this.strategy = strategy;
-  }
-
-  // Calcular impuestos
-  calculate(amount: number): number {
-    return this.strategy.calculateTax(amount);
+  @override
+  double calculateTax(double amount) {
+    return amount * 0.19;
   }
 }
 
-// Código Cliente para probar
-function main(): void {
-  const taxCalculator = new TaxCalculator(new USATaxStrategy());
+final class TaxCalculator {
+  TaxCalculator({required TaxStrategy strategy}) : _strategy = strategy;
 
-  console.log('%cCálculo de impuestos:\n', COLORS.red);
-  console.log('USA: $', taxCalculator.calculate(100).toFixed(2));
+  TaxStrategy _strategy;
 
-  console.log('\nCambiando a estrategia para Canada...');
+  void setStrategy(TaxStrategy strategy) {
+    _strategy = strategy;
+  }
+
+  double calculate(double amount) {
+    return _strategy.calculateTax(amount);
+  }
+}
+
+void main(List<String> args) {
+  final taxCalculator = TaxCalculator(strategy: USATaxStrategy());
+
+  print('Tax calculator:');
+  print('USA: ${taxCalculator.calculate(randomNumber()).toStringAsFixed(2)}');
+
+  print('Change strategy to Canada...');
   taxCalculator.setStrategy(new CanadaTaxStrategy());
-  console.log('Canada: $', taxCalculator.calculate(100).toFixed(2));
+  print(
+    'Canada: ${taxCalculator.calculate(randomNumber()).toStringAsFixed(2)}',
+  );
 
-  console.log('\nCambiando a estrategia para Germany...');
+  print('Change strategy to Germany...');
   taxCalculator.setStrategy(new GermanyTaxStrategy());
-  console.log('Germany: $', taxCalculator.calculate(100).toFixed(2));
+  print(
+    'Germany: ${taxCalculator.calculate(randomNumber()).toStringAsFixed(2)}',
+  );
 }
 
-main();
+double randomNumber() {
+  return Random().nextDouble() * 100;
+}

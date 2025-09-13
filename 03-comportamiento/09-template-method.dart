@@ -26,3 +26,58 @@
  * ya que define un esqueleto general del algoritmo en una clase base
  * y delega los detalles específicos a las subclases.
  */
+
+abstract base class HotBeverage {
+  void prepareBeverage() {
+    _boilWater();
+    addMainIngredient();
+    _pourInCup();
+    addCondiments();
+  }
+
+  void _boilWater() {
+    print('Boiling water');
+  }
+
+  void _pourInCup() {
+    print('Pouring in coffee');
+  }
+
+  void addMainIngredient();
+
+  void addCondiments();
+}
+
+final class Tea extends HotBeverage {
+  @override
+  void addCondiments() {
+    print('Adding lemon and honey');
+  }
+
+  @override
+  void addMainIngredient() {
+    print('Adding tea');
+  }
+}
+
+final class Coffee extends HotBeverage {
+  @override
+  void addCondiments() {
+    print('Adding sugar and milk');
+  }
+
+  @override
+  void addMainIngredient() {
+    print('Adding coffee');
+  }
+}
+
+void main(List<String> args) {
+  print('Preparing tea...');
+  final tea = Tea();
+  tea.prepareBeverage();
+
+  print('\nPreparing coffee...');
+  final coffee = Coffee();
+  coffee.prepareBeverage();
+}
